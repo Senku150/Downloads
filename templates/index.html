@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html lang="en"></html>
+
+
+<head>
+	<meta charset="'UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+</head>
+
+
+
+<body>
+	<form action="upload" method="post" enctype="multipart/form-data">
+            <input name="my_file" type="file">
+            <br>
+            <input type="submit" value="Upload">
+        </form>
+        <ul>
+        {% for file in my_files %}
+        	<li>
+        		<a href="/download?my_file={{file}}">{{file}}</a>
+        	</li>
+        {% endfor %}
+    	</ul>
+    <form action="clipboard" method="post" enctype="multipart/form-data">
+        <input name="copy" type="text">
+        <br>
+        <input type="submit" value="set">
+    </form>
+    <h1>
+        {% if txt == "" %}
+        Nothing to copy
+        {% else %}
+        {{txt}}
+        {% endif %} 
+    </h1>
+</body>
