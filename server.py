@@ -1,43 +1,40 @@
-from flask import Flask , render_template, request, redirect, flash, url_for, send_from_directory
+from flask import Flask ,request,flash
 import os
+import socket
+import secrets
+
+
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = ""
-app.config['SECRET_KEY'] = ''
-
-txt = ""
+app.config['UPLOAD_FOLDER'] = "storage"
+app.config['SECRET_KEY'] = secrets.token_bytes(32).hex()
 
 
-@app.route("/")
-def index():
-    my_files = os.listdir(app.config["UPLOAD_FOLDER"])
-    print(my_files)
-    return render_template("index.html",my_files=my_files,txt=txt)
 
 @app.route("/upload", methods=["POST"])
+
 def upload():
+  try:
     my_file = request.files.get("my_file")
     dst_file = my_file.filename
     flash("File uploaded")
     my_file.save(os.path.join(app.config["UPLOAD_FOLDER"], dst_file))
-    return redirect(url_for("index"))
+    path=os.path.join(app.config["UPLOAD_FOLDER"], dst_file)
+  except Exception as error:
+    print(error)
+    return "8"
+  try:
+    #TODO the azure blob here
+    os.remove(path)
+  except:
+    os.remove(path)
+    return "7"
+  finally:
+    return "1"
 
-
-@app.route("/clipboard", methods=["POST"])
-def clipboard():
-    global txt
-    txt = request.form.get("copy")
-    print(txt)
-    return redirect(url_for("index"))    
-
-@app.route("/download")
-def download():
-    download_file = request.args.get("my_file")
-    return send_from_directory(app.config['UPLOAD_FOLDER'], download_file, as_attachment=True)
 
 
 if __name__ == "__main__":
     #Here ip and port
-    app.run(debug=False, host="public IP", port=5000)
-    #app.run(debug=False)
-
+    ip= socket.gethostbyname(socket.gethostname())
+    app.run(debug=False, host=ip, port=5000)
