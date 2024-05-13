@@ -19,17 +19,17 @@ def commit():
         return ""
     try:
         myFile = {"my_file": open(path, "rb")}
-        s=requests.post("http://172.24.32.1:5000/upload", files = myFile, timeout = 2.5)
+        s=requests.post("http://public-ip:5000/upload", files = myFile, timeout = 2.5)
         string=str(s.content)
         if string[2]=="1":
             messagebox.showinfo("INFO","The file has been send succsfuly")
             path=""
             label.configure(text="No File Has been Selected !!!")
+            
         else:
             messagebox.showerror("ERROR","ERROR "+string[2])
     except:
         messagebox.showerror("ERROR","THE SERVER IS DOWN !!")
-
 
 #GUI -------------------------------------------------------------------------------------------------
 customtkinter.set_appearance_mode("dark")
@@ -53,3 +53,9 @@ label.place(relx=0.5,rely=0.5,anchor=customtkinter.CENTER)
 
 
 APP.mainloop()
+
+
+
+
+
+

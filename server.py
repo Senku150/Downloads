@@ -2,7 +2,9 @@ from flask import Flask ,request,flash
 import os
 import socket
 import secrets
-
+from azure.storage.blob import BlobClient
+from tkinter import filedialog
+from urllib.parse import urlparse
 
 
 app = Flask(__name__)
@@ -24,7 +26,7 @@ def upload():
     print(error)
     return "8"
   try:
-    #TODO the azure blob here
+    send_to_blob(path)
     os.remove(path)
   except:
     os.remove(path)
@@ -32,6 +34,23 @@ def upload():
   finally:
     return "1"
 
+def send_to_blob(path):
+
+    def read_first_line(file_path):
+        with open(file_path, 'r') as file:
+            first_line = file.readline().strip()
+        return first_line
+    
+    sas = read_first_line("temp.txt")
+    container = 'storage'
+    sasUrlParts = urlparse(sas)
+    accountEndpoint = sasUrlParts.scheme + '://' + sasUrlParts.netloc
+    sasToken = sasUrlParts.query
+    blobName = "VM_ZONE_1/"+os.path.basename(path) 
+    blobSasUrl = accountEndpoint + '/' + container + '/' + blobName + '?' + sasToken
+    blobClient = BlobClient.from_blob_url(blobSasUrl)
+    with open(path, 'rb') as f:
+        blobClient.upload_blob(f) 
 
 
 if __name__ == "__main__":
