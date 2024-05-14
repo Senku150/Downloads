@@ -3,7 +3,6 @@ import os
 import socket
 import secrets
 from azure.storage.blob import BlobClient
-from tkinter import filedialog
 from urllib.parse import urlparse
 
 
@@ -12,9 +11,11 @@ app.config['UPLOAD_FOLDER'] = "storage"
 app.config['SECRET_KEY'] = secrets.token_bytes(32).hex()
 
 
+@app.route("/", methods=["GET"])
+def index():
+        return "200"
 
 @app.route("/upload", methods=["POST"])
-
 def upload():
   try:
     my_file = request.files.get("my_file")

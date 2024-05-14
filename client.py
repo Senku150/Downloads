@@ -19,7 +19,7 @@ def commit():
         return ""
     try:
         myFile = {"my_file": open(path, "rb")}
-        s=requests.post("http://public-ip:5000/upload", files = myFile, timeout = 2.5)
+        s=requests.post("http://:5000/upload", files = myFile, timeout = 2.5)
         string=str(s.content)
         if string[2]=="1":
             messagebox.showinfo("INFO","The file has been send succsfuly")
@@ -27,7 +27,7 @@ def commit():
             label.configure(text="No File Has been Selected !!!")
             
         else:
-            messagebox.showerror("ERROR","ERROR "+string[2])
+            messagebox.showerror("ERROR","ERROR "+string)
     except:
         messagebox.showerror("ERROR","THE SERVER IS DOWN !!")
 
