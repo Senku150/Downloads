@@ -4,7 +4,7 @@ This project provides a Flask-based server that allows users to upload files and
 
 **Features:**
 
-- Secure file upload using Flask's `request` object and saving to a designated upload folder.
+- client file uploader using Flask's `request` object and saving to a designated upload folder on the server part.
 - Error handling with appropriate status codes:
     - 200: Success
     - 7: Upload processing error (non-specific)
@@ -24,8 +24,9 @@ This project provides a Flask-based server that allows users to upload files and
 2. Install the required dependencies:
 
    ```bash
-   pip install Flask azure-storage-blob
-   
+   pip install Flask
+   pip install azure-storage-blob
+
    OR
    
    pip install -r requirements.txt
