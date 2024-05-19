@@ -27,6 +27,10 @@ def upload():
     print(error)
     return "8"
   try:
+    #YOU CAN ADD YOUR OWN MODIFICATION OF THE FILE HERE ---------------------------------
+    # file = open(path)
+    #...
+    #...
     send_to_blob(path)
     os.remove(path)
   except:

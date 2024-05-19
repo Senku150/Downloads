@@ -19,7 +19,7 @@ def commit():
         return ""
     try:
         myFile = {"my_file": open(path, "rb")}
-        s=requests.post("http://:5000/upload", files = myFile, timeout = 2.5)
+        s=requests.post("http:// ------  PUT THE PUBLIC IP HERE ------ :5000/upload", files = myFile, timeout = 2.5)
         string=str(s.content)
         if string[2]=="1":
             messagebox.showinfo("INFO","The file has been send succsfuly")
@@ -29,7 +29,7 @@ def commit():
         else:
             messagebox.showerror("ERROR","ERROR "+string)
     except:
-        messagebox.showerror("ERROR","THE SERVER IS DOWN !!")
+        messagebox.showerror("ERROR","Somthing went Wrong Please Try Again")
 
 #GUI -------------------------------------------------------------------------------------------------
 customtkinter.set_appearance_mode("dark")
@@ -37,7 +37,7 @@ customtkinter.set_default_color_theme("blue")
 
 APP = customtkinter.CTk()
 
-APP.title("LOC")
+APP.title("client")
 APP.geometry("800x750")
 
 button1 = customtkinter.CTkButton(master=APP, text="Upload",
