@@ -26,12 +26,13 @@ This project provides a Flask-based server that allows users to upload files and
    ```bash
    pip install Flask
    pip install azure-storage-blob
+   ```
 
    OR
    
+   ```bash
    pip install -r requirements.txt
    ```
-
 **Configuration:**
 
 - Edit the file named `temp.txt` in the project directory. This file should contain a valid Shared Access Signature (SAS) URI for accessing your Azure Blob Storage container.
